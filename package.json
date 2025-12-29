@@ -8,7 +8,7 @@
     "dev:server": "vite build && node dev-server.js",
     "devstart": "node dev-server.js",
     "build": "vite build",
-    "start": "node dev-server.js",
+    "start": "tsx server.js",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
