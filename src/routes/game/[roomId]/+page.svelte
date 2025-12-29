@@ -160,16 +160,21 @@
     console.log('🎯 Card selected:', cardId, 'at index:', index);
 
     if (cardId === null) {
+      targetType = null;
+      waitingForTarget = false;
       selectedCard = null;
       selectedCardIndex = null;
-      waitingForTarget = false;
-      targetType = null;
       selectedPosition = null;
       fromPosition = null;
       toPosition = null;
       selectedDirection = null;
       selectedRowCol = null;
       selectedRowOrColIndex = null;
+      selectedHandIndices = [];
+      selectedCategory = null;
+      selectedCardFromSearch = null;
+      searchCandidates = [];
+      predictCandidates = [];
       gameStore.selectCard(null);
       return;
     }
