@@ -39,12 +39,6 @@
   <header class="header">
     <h1>🎮 Card Tic-Tac-Toe</h1>
     <p class="subtitle">カード効果で戦う○×ゲーム</p>
-    <ul>
-      <li>✨ リアルタイムオンライン対戦</li>
-      <li>🃏 29種類の多彩なカード効果</li>
-      <li>🎯 戦略性の高いゲームプレイ</li>
-      <li>⚡ クイックマッチング対応</li>
-    </ul>
   </header>
 
   <main class="main">
