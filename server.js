@@ -2,7 +2,7 @@
 import { handler } from './build/handler.js';
 import express from 'express';
 import { WebSocketServer } from 'ws';
-import { GameStateManager } from './build/server/game/GameState.js';
+import { GameStateManager } from './build/game-server/GameState.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;

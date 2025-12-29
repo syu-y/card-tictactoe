@@ -7,7 +7,7 @@
 		"dev": "vite dev --host",		
     "dev:server": "vite build && node dev-server.js",
     "devstart": "node dev-server.js",
-    "build": "vite build && echo '=== Copying server files ===' && cp -r src/lib/server build/ && echo '=== Build directory contents ===' && ls -la build/ && echo '=== Server directory contents ===' && ls -la build/server/",
+    "build": "vite build && mkdir -p build/game-server && cp -r src/lib/server/game/* build/game-server/ && ls -la build/game-server/",
     "start": "node server.js",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
