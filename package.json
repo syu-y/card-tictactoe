@@ -8,7 +8,7 @@
     "dev:server": "vite build && node dev-server.js",
     "devstart": "node dev-server.js",
     "build": "vite build && mkdir -p build/game-server && cp -r src/lib/server/game/* build/game-server/ && ls -la build/game-server/",
-    "start": "node server.js",
+    "start": "node dev-server.js",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",

@@ -22,9 +22,14 @@ await vite.listen();
 const { moduleGraph, ssrLoadModule } = vite;
 
 // ゲーム用WebSocketサーバーを別ポートで起動
+// const wss = new WebSocketServer({ 
+//   port: isDev ? 3001 : WS_PORT,
+//   host: isDev ? null : '0.0.0.0'
+// });
+
+// 23行目付近
 const wss = new WebSocketServer({ 
-  port: isDev ? 3001 : WS_PORT,
-  host: isDev ? null : '0.0.0.0'
+  server: vite.httpServer  // ← Viteのhttpサーバーを使う
 });
 
 if(isDev){
