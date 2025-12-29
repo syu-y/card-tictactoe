@@ -2,10 +2,10 @@
 import { handler } from './build/handler.js';
 import express from 'express';
 import { WebSocketServer } from 'ws';
+import { GameStateManager } from './build/server/game/GameState.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const WS_PORT = process.env.WS_PORT || 3001;
 
 // 静的ファイルを配信
 app.use(express.static('build/client'));
@@ -20,12 +20,9 @@ const server = app.listen(PORT, '0.0.0.0', () => {
 });
 
 // WebSocketサーバー
-const wss = new WebSocketServer({ 
-  port: WS_PORT,
-  host: '0.0.0.0'
-});
+const wss = new WebSocketServer({ server });
 
-console.log(`✅ WebSocket server running on ws://0.0.0.0:${WS_PORT}`);
+console.log(`✅ WebSocket server running on ws://0.0.0.0:${PORT}`);
 
 // ルーム管理
 const rooms = new Map();
@@ -137,10 +134,6 @@ wss.on('connection', (ws) => {
         
         if (allReady) {
           console.log('🎮 Starting game...');
-          
-          // ViteのSSRローダーを使用してモジュールをロード
-          const gameStateModule = await ssrLoadModule('/src/lib/server/game/GameState.ts');
-          const { GameStateManager } = gameStateModule;
           
           const gameManager = new GameStateManager(
             clientRoomId,
@@ -321,10 +314,6 @@ wss.on('connection', (ws) => {
         // 両プレイヤーが再戦希望なら、ゲームをリセット
         if (room.rematchRequests.size === 2) {
           console.log(`🎮 Both players agreed to rematch in room ${clientRoomId}`);
-          
-          // ViteのSSRローダーを使用してモジュールをロード
-          const gameStateModule = await ssrLoadModule('/src/lib/server/game/GameState.ts');
-          const { GameStateManager } = gameStateModule;
           
           const gameManager = new GameStateManager(
             clientRoomId,
