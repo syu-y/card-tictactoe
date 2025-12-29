@@ -170,7 +170,7 @@ export class CardEffects {
   }
 
   private static pushBoard(board: Board, params: CardParams): CardEffectResult {
-    if (!params.rowCol || !params.rowOrCol || !params.direction) {
+    if (!params.rowCol || params.rowOrCol === undefined || params.rowOrCol === null || !params.direction) {
       console.log(params)
       return { success: false, message: 'rowCol、rowOrCol、directionが必要です' };
     }
