@@ -31,13 +31,20 @@
 </script>
 
 <svelte:head>
-  <title>Card Tic-Tac-Toe</title>
+  <title>Card Tic-Tac-Toe - カード効果で戦う○×ゲーム</title>
+  <meta name="description" content="29種類のカード効果を駆使して戦略的に勝利を目指す、オンライン対戦型○×ゲーム。盤面操作、妨害、防御、補助カードで相手と駆け引き！" />
 </svelte:head>
 
 <div class="container">
   <header class="header">
-    <h1 class="title">Card Tic-Tac-Toe</h1>
-    <p class="subtitle">戦略性の高い○×ゲーム</p>
+    <h1>🎮 Card Tic-Tac-Toe</h1>
+    <p class="subtitle">カード効果で戦う○×ゲーム</p>
+    <ul>
+      <li>✨ リアルタイムオンライン対戦</li>
+      <li>🃏 29種類の多彩なカード効果</li>
+      <li>🎯 戦略性の高いゲームプレイ</li>
+      <li>⚡ クイックマッチング対応</li>
+    </ul>
   </header>
 
   <main class="main">

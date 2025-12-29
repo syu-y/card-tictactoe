@@ -4,6 +4,44 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<!-- SEO -->
+		<meta name="description" content="カード効果を駆使して戦略的に勝利を目指す、新感覚のオンライン対戦○×ゲーム。リアルタイムマルチプレイヤー対応。" />
+		<meta name="keywords" content="三目並べ,○×ゲーム,カードゲーム,オンラインゲーム,対戦ゲーム,マルチプレイヤー,ブラウザゲーム" />
+		<meta name="author" content="syu-y" />
+		
+		<!-- OGP (SNSシェア用) -->
+		<meta property="og:title" content="Card Tic-Tac-Toe - カード×三目並べ" />
+		<meta property="og:description" content="カード効果を駆使して戦略的に勝利を目指す、新感覚のオンライン対戦○×ゲーム" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://card-tictactoe-production.up.railway.app/" />
+		<meta property="og:image" content="https://card-tictactoe-production.up.railway.app/favicon.svg" />
+		
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="Card Tic-Tac-Toe" />
+		<meta name="twitter:description" content="カード効果を駆使する新感覚○×ゲーム" />
+		
+		<title>Card Tic-Tac-Toe - カード×三目並べ</title>
+
+		<!-- 構造化データ -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "VideoGame",
+			"name": "Card Tic-Tac-Toe",
+			"description": "カード効果を駆使して戦略的に勝利を目指す、新感覚のオンライン対戦○×ゲーム",
+			"genre": ["Strategy", "Puzzle", "Board Game"],
+			"playMode": "MultiPlayer",
+			"gamePlatform": "Web Browser",
+			"offers": {
+				"@type": "Offer",
+				"price": "0",
+				"priceCurrency": "JPY"
+			}
+		}
+		</script>
+
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
