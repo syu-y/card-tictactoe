@@ -21,6 +21,9 @@ await vite.listen();
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { moduleGraph, ssrLoadModule } = vite;
 
+// ViteのHTTPサーバーを取得
+const httpServer = vite.httpServer || vite.server;
+
 // ゲーム用WebSocketサーバーを別ポートで起動
 // const wss = new WebSocketServer({ 
 //   port: isDev ? 3001 : WS_PORT,
@@ -29,7 +32,7 @@ const { moduleGraph, ssrLoadModule } = vite;
 
 // 23行目付近
 const wss = new WebSocketServer({ 
-  server: vite.httpServer  // ← Viteのhttpサーバーを使う
+  server: httpServer  // ← Viteのhttpサーバーを使う
 });
 
 if(isDev){
@@ -37,7 +40,7 @@ if(isDev){
   console.log('✅ WebSocket server running on ws://localhost:3001');
 } else {
   console.log(`✅ Vite dev server running on http://0.0.0.0:${PORT}`);
-  console.log(`✅ WebSocket server running on ws://0.0.0.0:${WS_PORT}`);
+  console.log(`✅ WebSocket server running on ws://0.0.0.0:${PORT}`);
 }
 
 // ルーム管理
