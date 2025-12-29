@@ -86,6 +86,30 @@ export class GameStateManager {
       return { valid: false, reason: `デッキは${DECK_CONSTRAINTS.DECK_SIZE}枚である必要があります` };
     }
 
+    // カード枚数制限のチェック
+    const cardCounts = new Map<number, number>();
+    for (const cardId of deck) {
+      cardCounts.set(cardId, (cardCounts.get(cardId) || 0) + 1);
+    }
+
+    // 各カードの枚数制限をチェック
+    for (const [cardId, count] of cardCounts.entries()) {
+      const card = getCard(cardId);
+      if (!card) {
+        return { valid: false, reason: `無効なカードID: ${cardId}` };
+      }
+
+      // 妨害カードは1枚まで
+      if (card.category === '妨害' && count > 1) {
+        return { valid: false, reason: `${card.name}は1枚までしか入れられません（妨害カード制限）` };
+      }
+
+      // その他のカードは2枚まで
+      if (card.category !== '妨害' && count > 2) {
+        return { valid: false, reason: `${card.name}は2枚までしか入れられません` };
+      }
+    }
+
     // デッキをシャッフル
     const shuffledDeck = this.shuffleArray([...deck]);
     this.state.players[playerIndex].deck = shuffledDeck;
