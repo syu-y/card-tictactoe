@@ -176,6 +176,8 @@
       searchCandidates = [];
       predictCandidates = [];
       gameStore.selectCard(null);
+      // サーバーにキャンセルを通知
+      gameStore.cancelCard();
       return;
     }
 

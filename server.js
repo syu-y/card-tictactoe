@@ -285,6 +285,20 @@ wss.on('connection', (ws) => {
           clientPlayerId = null;
         }
       }
+      else if (message.type === 'CANCEL_CARD') {
+        if (!clientRoomId || !rooms.has(clientRoomId)) return;
+        
+        const room = rooms.get(clientRoomId);
+        if (!room.gameState) return;
+        const result = room.gameState.cancelCard(clientPlayerId);
+        
+        if (result.valid) {
+          room.players.forEach(p => {
+            const state = room.gameState.getPlayerView(p.playerId);
+            p.ws.send(JSON.stringify({ type: 'GAME_STATE', state }));
+          });
+        }
+      }
       else if (message.type === 'REMATCH_REQUEST') {
         console.log(`🔄 Player ${clientPlayerId} requested rematch in room ${clientRoomId}`);
         

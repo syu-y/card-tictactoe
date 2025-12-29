@@ -56,6 +56,7 @@ export class GameStateManager {
       skipNextPlace: false,
       ignoreCardLimit: false,
       noMoreCardThisTurn: false,
+      pendingCardAction: null
     };
   }
 
@@ -268,6 +269,29 @@ export class GameStateManager {
 
     // 配置フェーズへ移行
     this.state.phase = 'PLACE';
+
+    return { valid: true };
+  }
+
+  /**
+   * カード使用をキャンセル（マルチステップカードの途中状態をクリア）
+   */
+  cancelCard(playerId: PlayerId): ValidationResult {
+    const playerIndex = this.getPlayerIndex(playerId);
+    if (playerIndex === -1) {
+      return { valid: false, reason: 'プレイヤーが見つかりません' };
+    }
+    if (this.state.currentPlayer !== playerIndex) {
+      return { valid: false, reason: '自分のターンではありません' };
+    }
+
+    const player = this.state.players[playerIndex];
+
+    // pendingCardActionをクリア
+    if (player.pendingCardAction) {
+      player.pendingCardAction = null;
+      return { valid: true };
+    }
 
     return { valid: true };
   }
