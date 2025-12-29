@@ -4,10 +4,19 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	plugins: [sveltekit()],
 
+	// server: {
+	// 	port: 5173,
+	// 	strictPort: false,
+	// },
+
 	server: {
-		port: 5173,
-		strictPort: false,
-	},
+		host: '0.0.0.0',
+		allowedHosts: [
+			'localhost',
+			'.railway.app',
+			'.up.railway.app'
+		]
+	}
 
 	build: {
 		target: 'esnext',
