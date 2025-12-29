@@ -302,8 +302,6 @@
       (selectedCard === 24 && !selectedCardFromSearch && targetType === 'predictStart');
   
     // 状態をリセット
-    waitingForTarget = false;
-    targetType = null;
     selectedPosition = null;
     fromPosition = null;
     toPosition = null;
@@ -318,6 +316,8 @@
 
     // マルチステップカードの第1段階の場合、第2段階のUIを自動表示
     if (!isMultiStepFirstPhase) {
+      waitingForTarget = false;
+      targetType = null;
       selectedCard = null;
       selectedCardIndex = null;
     }
