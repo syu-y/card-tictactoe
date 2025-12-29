@@ -183,19 +183,14 @@ function createWebSocketStore() {
    * WebSocket URLを生成
    */
   function getWebSocketUrl(): string {
-    if (typeof window === 'undefined') {
-      return '';
-    }
+    // 環境変数から取得（本番・開発自動切り替え）
+    const wsUrl = import.meta.env.PUBLIC_WS_URL ||
+      (typeof window !== 'undefined' &&
+        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'ws://localhost:3001'
+        : `wss://${window.location.hostname}:3001`);
 
-    // 開発環境では専用ポート3001を使用
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      return 'ws://localhost:3001';
-    }
-
-    // 本番環境
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const host = window.location.host;
-    return `${protocol}//${host}`;
+    return wsUrl;
   }
 
   /**
