@@ -2,6 +2,10 @@
 import { createServer } from 'vite';
 import { WebSocketServer } from 'ws';
 
+const PORT = process.env.PORT || 5173;
+const WS_PORT = process.env.WS_PORT || 3001;
+const isDev = process.env.NODE_ENV !== 'production';
+
 const vite = await createServer({
   // server: { port: 5173 },
   server: { 
@@ -19,15 +23,17 @@ const { moduleGraph, ssrLoadModule } = vite;
 
 // ゲーム用WebSocketサーバーを別ポートで起動
 const wss = new WebSocketServer({ 
-  // port: 3001 
-  port: WS_PORT,
-  host: '0.0.0.0'
+  port: isDev ? 3001 : WS_PORT,
+  host: isDev ? null : '0.0.0.0'
 });
 
-// console.log('✅ Vite dev server running on http://localhost:5173');
-// console.log('✅ WebSocket server running on ws://localhost:3001');
-console.log(`✅ Vite dev server running on http://0.0.0.0:${PORT}`);
-console.log(`✅ WebSocket server running on ws://0.0.0.0:${WS_PORT}`);
+if(isDev){
+  console.log('✅ Vite dev server running on http://localhost:5173');
+  console.log('✅ WebSocket server running on ws://localhost:3001');
+} else {
+  console.log(`✅ Vite dev server running on http://0.0.0.0:${PORT}`);
+  console.log(`✅ WebSocket server running on ws://0.0.0.0:${WS_PORT}`);
+}
 
 // ルーム管理
 const rooms = new Map();
