@@ -16,7 +16,7 @@ export default defineConfig({
 			'.railway.app',
 			'.up.railway.app'
 		]
-	}
+	},
 
 	build: {
 		target: 'esnext',
