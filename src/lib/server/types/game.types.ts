@@ -119,11 +119,11 @@ export interface PlayerState {
   noMoreCardThisTurn: boolean; // このターンはもうカード使えない（2ドロー後）
 
   // マルチステップカード用の一時データ
-  pendingCardAction?: {
+  pendingCardAction: {
     cardId: number;
     step: 'SEARCH_START' | 'SEARCH_PICK' | 'PREDICT_START' | 'PREDICT_PICK';
     candidates?: number[];     // サーチ・予知の候補カードID
-  };
+  } | null;
 }
 
 // ============================================
@@ -173,6 +173,7 @@ export type ClientMessage =
   | { type: 'PLACE_MARK'; position: Position }
   | { type: 'USE_CARD'; cardId: number; params: CardParams }
   | { type: 'END_TURN' }
+  | { type: 'CANCEL_CARD' }
   | { type: 'LEAVE_ROOM' }
   | { type: 'CHAT'; message: string }
   | { type: 'QUICKSTART'; playerId: PlayerId; playerName: string }

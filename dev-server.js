@@ -281,6 +281,20 @@ wss.on('connection', (ws) => {
           });
         }
       }
+      else if (message.type === 'CANCEL_CARD') {
+        if (!clientRoomId || !rooms.has(clientRoomId)) return;
+        
+        const room = rooms.get(clientRoomId);
+        if (!room.gameState) return;
+        const result = room.gameState.cancelCard(clientPlayerId);
+        
+        if (result.valid) {
+          room.players.forEach(p => {
+            const state = room.gameState.getPlayerView(p.playerId);
+            p.ws.send(JSON.stringify({ type: 'GAME_STATE', state }));
+          });
+        }
+      }
       else if (message.type === 'LEAVE_ROOM') {
         console.log(`👋 Player ${clientPlayerId} leaving room ${clientRoomId}`);
         

@@ -250,6 +250,15 @@ function createGameStore() {
   }
 
   /**
+   * カード使用をキャンセル
+   */
+  function cancelCard(): void {
+    websocketStore.send({
+      type: 'CANCEL_CARD',
+    });
+  }
+
+  /**
    * マークを配置
    */
   function placeMark(position: Position): void {
@@ -341,6 +350,7 @@ function createGameStore() {
     reset,
     requestRematch,
     clearRematchState,
+    cancelCard,
   };
 }
 
