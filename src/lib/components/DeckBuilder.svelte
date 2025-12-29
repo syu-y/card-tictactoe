@@ -51,12 +51,22 @@
       alert(`デッキは${DECK_SIZE}枚までです`);
       return;
     }
-    
+
+    const card = CARDS[cardId];
+    if (!card) return;
+
     // 同じカードが既に2枚入っているかチェック
     const count = deck.filter(id => id === cardId).length;
-    if (count >= 2) {
-      const card = CARDS[cardId];
-      alert(`${card?.name || 'カード'}は最大2枚までです`);
+
+    // 妨害カードは1枚まで
+    if (card.category === '妨害' && count >= 1) {
+      alert(`${card.name}は1枚までです（妨害カード制限）`);
+      return;
+    }
+
+    // その他のカードは2枚まで
+    if (card.category !== '妨害' && count >= 2) {
+      alert(`${card.name}は最大2枚までです`);
       return;
     }
     
@@ -152,8 +162,11 @@
               onclick={() => addCard(card.id)}
               isClickable={deck.length < DECK_SIZE}
             />
-            <div class="card-count" class:max-count={getCardCount(card.id) >= 2}>
-              デッキ内: {getCardCount(card.id)} / 2
+            <div class="card-count" class:max-count={
+              (card.category === '妨害' && getCardCount(card.id) >= 1) ||
+              (card.category !== '妨害' && getCardCount(card.id) >= 2)
+            }>
+              デッキ内: {getCardCount(card.id)} / {card.category === '妨害' ? 1 : 2}
             </div>
           </div>
         {/each}
