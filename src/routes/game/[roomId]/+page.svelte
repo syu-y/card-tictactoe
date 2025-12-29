@@ -63,6 +63,26 @@
     errorMessage = $gameStore.error || '';
   });
 
+  // マルチステップカードの第2段階を自動表示
+  $effect(() => {
+    const player = myPlayerState;
+    if (!player?.pendingCardAction) return;
+
+    const { step, candidates = [] } = player.pendingCardAction;
+    
+    if (step === 'SEARCH_START' && selectedCard === 23) {
+      searchCandidates = candidates;
+      targetType = 'searchPick';
+      waitingForTarget = true;
+      console.log('🔄 Auto-showing search step 2');
+    } else if (step === 'PREDICT_START' && selectedCard === 24) {
+      predictCandidates = candidates;
+      targetType = 'predictPick';
+      waitingForTarget = true;
+      console.log('🔄 Auto-showing predict step 2');
+    }
+  });
+
   // 相手退室の監視
   $effect(() => {
     if ($gameStore.opponentLeft) {
@@ -297,24 +317,7 @@
     predictCandidates = [];
 
     // マルチステップカードの第1段階の場合、第2段階のUIを自動表示
-    if (isMultiStepFirstPhase) {
-      setTimeout(() => {
-        const player = myPlayerState;
-        if (!player?.pendingCardAction) return;
-        
-        const { step, candidates = [] } = player.pendingCardAction;
-        
-        if (step === 'SEARCH_START') {
-          searchCandidates = candidates;
-          targetType = 'searchPick';
-          waitingForTarget = true;
-        } else if (step === 'PREDICT_START') {
-          predictCandidates = candidates;
-          targetType = 'predictPick';
-          waitingForTarget = true;
-        }
-      }, 100);
-    } else {
+    if (!isMultiStepFirstPhase) {
       selectedCard = null;
       selectedCardIndex = null;
     }
