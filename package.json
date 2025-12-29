@@ -6,8 +6,8 @@
   "scripts": {
 		"dev": "vite dev --host",		
     "dev:server": "vite build && node dev-server.js",
-    "build": "vite build",
     "devstart": "node dev-server.js",
+    "build": "vite build && cp -r src/lib/server build/",
     "start": "node server.js",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
